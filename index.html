@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PantryBook — Your Recipe Collection</title>
+  <meta name="description" content="Organize, search and cook from your own family recipe box." />
+ <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a href="index.html" class="brand">
+        <span class="brand-mark" aria-hidden="true">🍲</span>
+        <span class="brand-name">PantryBook</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html" class="active">Recipe Box</a>
+        <a href="about.html">About This Project</a>
+      </nav>
+      <button id="addRecipeBtn" class="btn btn-primary">+ Add recipe</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap hero-row">
+      <div class="hero-copy">
+        <h1>Every recipe your family cooks, in one box.</h1>
+        <p>Stop losing recipes in group chats and sticky notes. Add what you cook, search it by ingredient, and get to the stove faster.</p>
+      </div>
+      <dl class="hero-stats" id="heroStats" aria-label="Collection statistics">
+        <div class="stat">
+          <dt>Recipes saved</dt>
+          <dd id="statTotal">0</dd>
+        </div>
+        <div class="stat">
+          <dt>Cuisines</dt>
+          <dd id="statCuisines">0</dd>
+        </div>
+        <div class="stat">
+          <dt>Favorites</dt>
+          <dd id="statFavorites">0</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <main class="wrap main-layout">
+
+    <aside class="filters" aria-label="Filter recipes">
+      <h2>Find a recipe</h2>
+
+      <div class="field">
+        <label for="searchInput">Search by name or ingredient</label>
+        <input type="search" id="searchInput" placeholder="e.g. paneer, lemon, soup" autocomplete="off" />
+      </div>
+
+      <div class="field">
+        <label for="categorySelect">Course</label>
+        <select id="categorySelect">
+          <option value="all">All courses</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="difficultySelect">Difficulty</label>
+        <select id="difficultySelect">
+          <option value="all">Any difficulty</option>
+          <option value="Easy">Easy</option>
+          <option value="Medium">Medium</option>
+          <option value="Hard">Hard</option>
+        </select>
+      </div>
+
+      <div class="field checkbox-field">
+        <input type="checkbox" id="favOnly" />
+        <label for="favOnly">Favorites only</label>
+      </div>
+
+      <button id="clearFiltersBtn" class="btn btn-ghost">Clear filters</button>
+    </aside>
+
+    <section class="results" aria-label="Recipe results">
+      <div class="results-head">
+        <h2 id="resultsCount">Showing all recipes</h2>
+        <label class="sort-label" for="sortSelect">Sort by
+          <select id="sortSelect">
+            <option value="name">Name (A–Z)</option>
+            <option value="time">Cook time (shortest)</option>
+            <option value="difficulty">Difficulty</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="recipeGrid" class="recipe-grid"></div>
+
+      <p id="emptyState" class="empty-state" hidden>
+        No recipes match your search. Try a different ingredient, or
+        <button id="emptyClearBtn" class="link-btn">clear your filters</button>.
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>PantryBook — built as a frontend  project. Data is stored locally in your browser.</p>
+    </div>
+  </footer>
+
+
+  <div id="detailModal" class="modal" hidden>
+    <div class="modal-panel modal-panel--wide" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+      <button class="modal-close" data-close-modal aria-label="Close">✕</button>
+      <div id="detailContent"></div>
+    </div>
+  </div>
+
+
+  <div id="formModal" class="modal" hidden>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="formTitle">
+      <button class="modal-close" data-close-modal aria-label="Close">✕</button>
+      <h2 id="formTitle">Add a recipe</h2>
+      <form id="recipeForm" novalidate>
+        <input type="hidden" id="recipeId" />
+
+        <div class="field">
+          <label for="titleInput">Recipe name *</label>
+          <input type="text" id="titleInput" required maxlength="60" />
+          <small class="error" id="titleError"></small>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="courseInput">Course *</label>
+            <input type="text" id="courseInput" placeholder="Breakfast, Main, Dessert…" required />
+          </div>
+          <div class="field">
+            <label for="cuisineInput">Cuisine *</label>
+            <input type="text" id="cuisineInput" placeholder="Indian, Italian…" required />
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="timeInput">Cook time (minutes) *</label>
+            <input type="number" id="timeInput" min="1" max="600" required />
+            <small class="error" id="timeError"></small>
+          </div>
+          <div class="field">
+            <label for="servingsInput">Servings *</label>
+            <input type="number" id="servingsInput" min="1" max="50" required />
+          </div>
+          <div class="field">
+            <label for="difficultyInput">Difficulty *</label>
+            <select id="difficultyInput" required>
+              <option value="Easy">Easy</option>
+              <option value="Medium">Medium</option>
+              <option value="Hard">Hard</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="ingredientsInput">Ingredients * (one per line)</label>
+          <textarea id="ingredientsInput" rows="5" required placeholder="2 cups rice&#10;1 onion, sliced&#10;1 tsp cumin"></textarea>
+          <small class="error" id="ingredientsError"></small>
+        </div>
+
+        <div class="field">
+          <label for="stepsInput">Method * (one step per line)</label>
+          <textarea id="stepsInput" rows="5" required placeholder="Rinse the rice until water runs clear.&#10;Heat oil and fry the cumin until fragrant."></textarea>
+          <small class="error" id="stepsError"></small>
+        </div>
+
+        <div class="field">
+          <label for="emojiInput">Icon</label>
+          <select id="emojiInput">
+            <option value="🍛">🍛 Curry / rice</option>
+            <option value="🍲">🍲 Soup / stew</option>
+            <option value="🥗">🥗 Salad</option>
+            <option value="🍰">🍰 Dessert</option>
+            <option value="🍞">🍞 Bread / baking</option>
+            <option value="🍳">🍳 Breakfast</option>
+            <option value="🍜">🍜 Noodles</option>
+            <option value="🥘">🥘 One-pot</option>
+          </select>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" data-close-modal>Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveRecipeBtn">Save recipe</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

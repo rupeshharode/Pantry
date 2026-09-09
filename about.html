@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — PantryBook</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a href="index.html" class="brand">
+        <span class="brand-mark" aria-hidden="true">🍲</span>
+        <span class="brand-name">PantryBook</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html">Recipe Box</a>
+        <a href="about.html" class="active">About This Project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap about-page">
+    <article class="about-article">
+      <h1>About PantryBook</h1>
+      <p class="lede">PantryBook is a final internship project: a responsive recipe manager that lets a home cook save, search, filter and edit their own recipes, entirely in the browser.</p>
+
+      <section>
+        <h2>Why this project</h2>
+        <p>Family recipes usually live scattered across notebooks, screenshots and chat messages. PantryBook gives them one searchable home, with the kind of add / edit / delete workflow used in most real content-management tools.</p>
+      </section>
+
+      <section>
+        <h2>What it demonstrates</h2>
+        <ul class="skills-list">
+          <li><strong>Semantic HTML</strong> — header, nav, main, aside, section, article, footer, and an accessible form with labelled fields.</li>
+          <li><strong>CSS</strong> — the box model, Flexbox for the header and filter controls, CSS Grid for the recipe cards, and media queries for phone, tablet and desktop layouts.</li>
+          <li><strong>JavaScript</strong> — an array of recipe objects, DOM rendering, event handling (search, filter, sort, form submit, click-to-edit, click-to-delete), and browser storage so data survives a page reload.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>How to use it</h2>
+        <ol class="steps-list">
+          <li>Open the <strong>Recipe Box</strong> page. A starter set of recipes loads automatically the first time.</li>
+          <li>Use the search box or the course / difficulty filters to narrow the list.</li>
+          <li>Click a recipe card to see the full ingredient list and method.</li>
+          <li>Use <strong>+ Add recipe</strong> to create a new one, or the edit / delete icons on a card to manage existing ones.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Tech stack</h2>
+        <p>HTML5, CSS3 (Flexbox, Grid, media queries, custom properties) and vanilla JavaScript (ES6). No frameworks or build step — open <code>index.html</code> and it runs.</p>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>PantryBook — built as a frontend project . Data is stored locally in your browser.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
