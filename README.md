@@ -2,8 +2,8 @@
 
 A responsive web app for organizing, searching and cooking from your own recipe collection. Built as a final internship project to demonstrate HTML, CSS and JavaScript skills end to end.
 
-**Live site:** 
-**Repository:** 
+**Live site:** https://rupeshharode.github.io/Pantry/
+**Repository:** https://github.com/rupeshharode/Pantry.git
 
 ---
 
